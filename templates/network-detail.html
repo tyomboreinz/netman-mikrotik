@@ -1,0 +1,77 @@
+{% extends  'base.html' %}
+{% load static %}
+{% block content %}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-global icon-gradient bg-tempting-azure"></i>
+            </div>
+            <div>Data IP Address
+                <div class="page-title-subheading">All IP Address on network 
+                    {% for subnet in sidebar_subnets %}
+                        {% if subnet.id == id_subnet %}
+                            {{ subnet.ip_network }} / {{ subnet.netmask }}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12 d-flex">
+    <a href="{% url 'ip_add' %}">
+        <button class="btn btn-success mx-auto mx-md-0 text-white">Add IP address</button>
+    </a>
+</div><br>
+<div class="main-card mb-3 card">
+    <div class="card-body">
+        <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>IP Address</th>
+                <th>Hostname</th>
+                <th>User</th>
+                <th>Password</th>
+                <th>Operating System</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for ip in ips %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ ip.ip_address }}</td>
+                    <td>{{ ip.hostname }}</td>
+                    <td>{{ ip.username }}</td>
+                    <td><span id="ip-password-{{ ip.id }}" type="password">{{ ip.password }}</span>
+                        <span id="password-{{ ip.id }}" toggle="#ip-password-{{ ip.id }}" class="fa fa-fw fa-eye toggle-password-{{ ip.id }}" style="float: right;"></span>
+                    </td>
+                    <td>{{ ip.os }}</td>
+                    <td>{{ ip.description }}</td>
+                    <td>
+                        <a href="{% url 'ip_edit' ip.id%}"><i class="fas fa-pencil-alt"></i></a>&nbsp;&nbsp;
+                        <a href="#" data-toggle="modal" data-target="#delete-ip-{{ ip.id }}"><i class="fas fa-trash-alt"></i></a></td>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>#</th>
+                    <th>IP Address</th>
+                    <th>Hostname</th>
+                    <th>User</th>
+                    <th>Password</th>
+                    <th>Operating System</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

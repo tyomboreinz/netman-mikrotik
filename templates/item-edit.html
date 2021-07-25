@@ -1,0 +1,42 @@
+{% extends  'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-medal icon-gradient bg-tempting-azure"></i>
+            </div>
+            <div>Edit
+                <div class="page-title-subheading">{{ title }} </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main-card mb-3 card">
+    <div class="card-body">
+        <form action="" method="post" class="form-horizontal form-material mx-2">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-success mx-auto mx-md-0 text-white">
+                Save
+            </button>
+            {% if 'Config' in title %}
+                <a href="/dhcp/config" class="btn btn-warning">Back</a>
+            {% elif title == 'Edit Static DHCP' %}
+                <a href="/dhcp/static" class="btn btn-warning">Back</a>
+            {% elif title == 'Edit DHCP Server' %}
+                <a href="/dhcp/server" class="btn btn-warning">Back</a>
+            {% elif title == 'Edit Domain' %}
+                <a href="/domain" class="btn btn-warning">Back</a>
+            {% elif title == 'Edit Subdomain' %}
+                <a href="/subdomain/{{ subdomain.domain_id }}" class="btn btn-warning">Back</a>
+            {% else %}
+                <a href="/network/{{ ip.subnet_id }}" class="btn btn-warning">Back</a>
+            {% endif %}
+        </form>
+    </div>
+</div>
+
+{% endblock %}

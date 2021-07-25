@@ -1,0 +1,70 @@
+{% extends  'base.html' %}
+{% load static %}
+{% block content %}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-pen icon-gradient bg-mean-fruit"></i>
+            </div>
+            <div>List of SubDomain
+                <div class="page-title-subheading">Subdomain on
+                    {% for domain in sidebar_domains %}
+                        {% if domain.id == id_domain %}
+                            {{ domain.domain }}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12 d-flex">
+    <a href="{% url 'subdomain_add' %}">
+        <button class="btn btn-success mx-auto mx-md-0 text-white">Add Subdomain</button>
+    </a>
+</div><br>
+<div class="row">
+    <div class="col-md-12">
+        <div class="main-card mb-3 card">
+            <div class="card-header">List Subdomain
+                <div class="btn-actions-pane-right">
+                    <!-- <div role="group" class="btn-group-sm btn-group">
+                        <button class="active btn btn-focus">Last Week</button>
+                        <button class="btn btn-focus">All Month</button>
+                    </div> -->
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Subdomain</th>
+                        <th class="text-center">IP Address</th>
+                        <th class="text-center">Description</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for dns in list_subdomains %}
+                    <tr>
+                        <td class="text-center text-muted">{{ forloop.counter }}</td>
+                        <td class="text-center">{{ dns.subdomain }}.{{ dns.domain }}</td>
+                        <td class="text-center">{{ dns.ip }}</td>
+                        <td class="text-center">{{ dns.description }}</td>
+                        <td class="text-center">
+                            <a href="{% url 'subdomain_edit' dns.id %}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-subdomain-{{ dns.subdomain }}">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-block text-center card-footer"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

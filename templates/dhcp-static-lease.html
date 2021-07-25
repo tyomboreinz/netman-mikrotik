@@ -1,0 +1,64 @@
+{% extends  'base.html' %}
+{% load static %}
+{% block content %}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-pen icon-gradient bg-mean-fruit"></i>
+            </div>
+            <div>List of Static Lease
+                <div class="page-title-subheading">This is DHCP Static Lease</div>
+            </div>
+        </div>
+    </div>
+</div>
+<a href="{% url 'dhcp_static_add' %}">
+    <button class="btn btn-success mx-auto mx-md-0 text-white">Add Static Lease</button>
+</a><br><br>
+<div class="row">
+    <div class="col-md-12">
+        <div class="main-card mb-3 card">
+            <div class="card-header">List DHCP Static Lease
+                <div class="btn-actions-pane-right">
+                    <!-- <div role="group" class="btn-group-sm btn-group">
+                        <button class="active btn btn-focus">Last Week</button>
+                        <button class="btn btn-focus">All Month</button>
+                    </div> -->
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Name</th>
+                        <th class="text-center">Mac Address</th>
+                        <th class="text-center">IP Address</th>
+                        <th class="text-center">Description</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for dhcp in dhcp_static %}
+                    <tr>
+                        <td class="text-center text-muted">{{ forloop.counter }}</td>
+                        <td class="text-center">{{ dhcp.name }}</td>
+                        <td class="text-center">{{ dhcp.mac }}</td>
+                        <td class="text-center">{{ dhcp.ip }}</td>
+                        <td class="text-center">{{ dhcp.description }}</td>
+                        <td class="text-center">
+                            <a href="{% url 'dhcp_static_edit' dhcp.id %}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-dhcp-{{ dhcp.name }}">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-block text-center card-footer"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

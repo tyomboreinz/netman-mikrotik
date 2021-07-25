@@ -1,0 +1,70 @@
+{% extends  'base.html' %}
+{% load static %}
+{% block content %}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-config icon-gradient bg-mean-fruit"></i>
+            </div>
+            <div>DHCP Configuration
+                <div class="page-title-subheading">This is config of DHCP Server</div>
+            </div>
+        </div>
+           
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="main-card mb-3 card">
+            <div class="card-header">Configurations
+                <div class="btn-actions-pane-right">
+                    <div role="group" class="btn-group-sm btn-group">
+                        <a href="{% url 'dhcp_server_add' %}">
+                            <button class="btn btn-success mx-auto mx-md-0 text-white">Add Config</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Name</th>
+                        <th class="text-center">Interface</th>
+                        <th class="text-center">Subnet</th>
+                        <th class="text-center">IP Start</th>
+                        <th class="text-center">IP End</th>
+                        <th class="text-center">Gateway</th>
+                        <th class="text-center">DNS</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for config in dhcp_server %}
+                    <tr>
+                        <td class="text-center text-muted">{{ forloop.counter }}</td>
+                        <td class="text-center">{{ config.name  }}</td>
+                        <td class="text-center">{{ config.interface  }}</td>
+                        <td class="text-center">{{ config.subnet }}</td>
+                        <td class="text-center">{{ config.ip_start }}</td>
+                        <td class="text-center">{{ config.ip_end }}</td>
+                        <td class="text-center">{{ config.gateway }}</td>
+                        <td class="text-center">{{ config.dns }}</td>
+                        <td class="text-center">
+                            <a href="{% url 'dhcp_server_edit' config.id%}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-dhcp-server-{{ config.id }}">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-block text-center card-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

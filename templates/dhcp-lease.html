@@ -1,0 +1,79 @@
+{% extends  'base.html' %}
+{% load static %}
+{% block content %}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-mouse icon-gradient bg-mean-fruit"></i>
+            </div>
+            <div>List of DHCP Lease
+                <div class="page-title-subheading">This is DHCP Lease</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="main-card mb-3 card">
+            <div class="card-header">List DHCP Lease
+                <div class="btn-actions-pane-right">
+                    <!-- <div role="group" class="btn-group-sm btn-group">
+                        <button class="active btn btn-focus">Last Week</button>
+                        <button class="btn btn-focus">All Month</button>
+                    </div> -->
+                </div>
+            </div>
+            <div class="card-body">
+                <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">IP Address</th>
+                        <th class="text-center">Hostname</th>
+                        <th class="text-center">Mac Address</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Note</th>
+                        <th class="text-center">Avaiable Until</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for dhcp in dhcp_lease %}
+                    <tr>
+                        <td class="text-center text-muted">{{ forloop.counter }}</td>
+                        <td class="text-center">{{ dhcp.address }}</td>
+                        <td class="text-center">
+                            {% if 'host_name' in dhcp %}
+                                {{ dhcp.host_name }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td class="text-center">{{ dhcp.mac_address }}</td>
+                        <td class="text-center">
+                            {% if dhcp.status == 'waiting' %}
+                                inactive
+                            {% else %}
+                                {{ dhcp.status }}
+                            {% endif %}
+                        </td>
+                        <td class="text-center">{{ dhcp.comment }}</td>
+                        <td class="text-center">
+                            {% if 'expires_after' in dhcp %}
+                                {{ dhcp.expires_after }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-block text-center card-footer"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

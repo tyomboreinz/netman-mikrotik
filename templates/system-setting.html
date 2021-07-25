@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12 col-lg-6 col-xl-5">
+        <div class="mb-3 card">
+            <div class="card-header-tab card-header">
+                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                    <i class="header-icon lnr-dice mr-3 text-muted opacity-6"> </i>
+                    List Operating System
+                </div>
+                <div class="btn-actions-pane-right actions-icon-btn">
+                    <form action="" method="post" class="form-horizontal form-material mx-2">
+                        {% csrf_token %}
+                        {{ form.name }}
+                    </form>
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6"></div>
+                        <div class="col-sm-12 col-md-6"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="dataTables_scroll">
+                                <div class="dataTables_scrollHead"
+                                    style="overflow: hidden; position: relative; border: 0px; width: 100%;">
+                                    <div class="dataTables_scrollHeadInner"
+                                        style="box-sizing: content-box; padding-right: 0px;">
+                                        <table style="margin-left: 0px;"
+                                            class="table table-hover table-striped table-bordered dataTable"
+                                            role="grid">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th>Name</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="dataTables_scrollBody"
+                                    style="position: relative; max-height: 300px; width: 100%;">
+                                    <table style="width: 100%;" id="example2"
+                                        class="table table-hover table-striped table-bordered dataTable" role="grid">
+                                        <thead>
+                                            <tr role="row" style="height: 0px;">
+                                                <th class="sorting_asc" aria-controls="example2" rowspan="1" colspan="1"
+                                                    style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;"
+                                                    aria-sort="ascending"
+                                                    aria-label="Name: activate to sort column descending">
+                                                    <div class="dataTables_sizing"
+                                                        style="height: 0px; overflow: hidden;">Name</div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for os in os_data %}
+                                            <tr role="row" class="odd">
+                                                <td class="sorting_1">
+                                                    <span>{{ os.name }}</span>
+                                                    <span style="float: right;">
+                                                        <a href="{% url 'os_delete' os.id %}"><i
+                                                                class="fas fa-trash-alt"></i></a>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5"></div>
+                        <div class="col-sm-12 col-md-7"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-lg-6 col-xl-5">
+        <div class="mb-3 card">
+            <div class="card-header-tab card-header">
+                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                    <i class="header-icon lnr-dice mr-3 text-muted opacity-6"> </i>
+                    Router Config
+                </div>
+                <div class="btn-actions-pane-right actions-icon-btn"></div>
+            </div>
+            <div class="card-body">
+                <div class="dt-bootstrap4">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6"></div>
+                        <div class="col-sm-12 col-md-6"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-hover table-striped table-bordered dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>Config</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <form action="" method="post" class="form-horizontal form-material mx-2">
+                                        {% csrf_token %}
+                                    
+                                        {% for config in router_config %}
+                                        <tr>
+                                            <th>{{ config.config|upper }}</th>
+                                            <th>
+                                                {% if config.id == 3 %}
+                                                    <input type="password" name="{{ config.id }}" class="form-control" value="{{ config.value }}" disabled></th>
+                                                {% else %}
+                                                    <input type="text" name="{{ config.id }}" class="form-control" value="{{ config.value }}" disabled></th>
+                                                {% endif %}
+                                        </tr>
+                                        {% endfor %}
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-4"></div>
+                        <div class="col-sm-12 col-md-7"><button class="btn btn-danger" disabled>Update</button></form>&nbsp;<button class="btn btn-warning">Edit</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

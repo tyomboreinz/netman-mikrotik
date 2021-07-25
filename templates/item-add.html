@@ -1,0 +1,47 @@
+{% extends  'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-medal icon-gradient bg-tempting-azure"></i>
+            </div>
+            <div>
+                {% if title == 'Add Network' %}
+                    Add Network
+                    <div class="page-title-subheading">Adding Network to more connect with other</div>
+                {% elif title == 'Add IP' %}
+                    Add IP Address
+                    <div class="page-title-subheading">Adding IP Address to manage</div>
+                {% elif title == 'Add DHCP' %}
+                    Add DHCP Static
+                    <div class="page-title-subheading">Adding DHCP Static Lease</div>
+                {% elif title == 'Add Domain' %}
+                    Add Domain
+                    <div class="page-title-subheading">Adding Domain</div>
+                {% elif title == 'Add Subdomain' %}
+                    Add Subdomain
+                    <div class="page-title-subheading">Adding Subdomain</div>
+                {% else %}
+                    Add Item
+                    <div class="page-title-subheading">Adding Item</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main-card mb-3 card">
+    <div class="card-body">
+        <form action="" method="post" class="form-horizontal form-material mx-2">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-success mx-auto mx-md-0 text-white">
+                Add
+            </button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
