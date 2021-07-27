@@ -5,15 +5,15 @@ from django.contrib.auth.forms import AuthenticationForm
 from ddi.models import *
 from ddi.mikrotik import MikrotikAPI
 
-class FormRouter(ModelForm):
-    class Meta:
-        model = Router
-        fields = '__all__'
+# class FormRouter(ModelForm):
+#     class Meta:
+#         model = Router
+#         fields = '__all__'
 
-        widgets = {
-            'config': forms.TextInput({'class':'form-control'}),
-            'value': forms.TextInput({'class':'form-control'}),
-        }
+#         widgets = {
+#             'config': forms.TextInput({'class':'form-control'}),
+#             'value': forms.TextInput({'class':'form-control'}),
+#         }
 
 class FormOS(ModelForm):
     class Meta:

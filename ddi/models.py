@@ -1,12 +1,13 @@
 from django.db import models
 
 # Create your models here.
-class Router(models.Model):
-    config = models.CharField(max_length=15)
-    value = models.CharField(max_length=15)
 
-    def __str__(self):
-        return self.config
+# class Router(models.Model):
+#     config = models.CharField(max_length=15)
+#     value = models.CharField(max_length=15)
+
+#     def __str__(self):
+#         return self.config
 
 class OS(models.Model):
 

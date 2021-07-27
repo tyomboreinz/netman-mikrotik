@@ -84,59 +84,6 @@
         </div>
     </div>
 
-    <div class="col-md-12 col-lg-6 col-xl-5">
-        <div class="mb-3 card">
-            <div class="card-header-tab card-header">
-                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
-                    <i class="header-icon lnr-dice mr-3 text-muted opacity-6"> </i>
-                    Router Config
-                </div>
-                <div class="btn-actions-pane-right actions-icon-btn"></div>
-            </div>
-            <div class="card-body">
-                <div class="dt-bootstrap4">
-                    <div class="row">
-                        <div class="col-sm-12 col-md-6"></div>
-                        <div class="col-sm-12 col-md-6"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <table class="table table-hover table-striped table-bordered dataTable">
-                                <thead>
-                                    <tr>
-                                        <th>Config</th>
-                                        <th>Value</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <form action="" method="post" class="form-horizontal form-material mx-2">
-                                        {% csrf_token %}
-                                    
-                                        {% for config in router_config %}
-                                        <tr>
-                                            <th>{{ config.config|upper }}</th>
-                                            <th>
-                                                {% if config.id == 3 %}
-                                                    <input type="password" name="{{ config.id }}" class="form-control" value="{{ config.value }}" disabled></th>
-                                                {% else %}
-                                                    <input type="text" name="{{ config.id }}" class="form-control" value="{{ config.value }}" disabled></th>
-                                                {% endif %}
-                                        </tr>
-                                        {% endfor %}
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-md-4"></div>
-                        <div class="col-sm-12 col-md-7"><button class="btn btn-danger" disabled>Update</button></form>&nbsp;<button class="btn btn-warning">Edit</button></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
 
 {% endblock %}

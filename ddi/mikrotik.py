@@ -42,6 +42,11 @@ class MikrotikAPI():
 
         return list_dhcp
 
+    def get_count_dhcp_lease():
+        list_ipadd = MikrotikAPI.api.get_resource('ip/dhcp-server/lease/').get()
+
+        return len(list_ipadd)
+
     def add_ip_pool(name, ranges):
         MikrotikAPI.api.get_binary_resource('/').call('ip/pool/add', {'name':name.encode('utf-8'), 'ranges':ranges.encode('utf-8')})
         for data in MikrotikAPI.api.get_resource('ip/pool').get():

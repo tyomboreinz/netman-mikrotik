@@ -19,9 +19,9 @@ def setting(request):
         print(request.POST)             ###################
         if '1' in request.POST:
             post_value = request.POST.copy()
-            Router.objects.filter(id=1).update(value=post_value['1'])
-            Router.objects.filter(id=2).update(value=post_value['2'])
-            Router.objects.filter(id=3).update(value=post_value['3'])
+            # Router.objects.filter(id=1).update(value=post_value['1'])
+            # Router.objects.filter(id=2).update(value=post_value['2'])
+            # Router.objects.filter(id=3).update(value=post_value['3'])
         else:
             form = FormOS(request.POST)
             
@@ -31,11 +31,11 @@ def setting(request):
         return redirect('/setting')
     else:
         form = FormOS()
-        form_router = FormRouter()
+        # form_router = FormRouter()
         data = {
             'form' : form,
-            'form_router' : form_router,
-            'router_config': Router.objects.all(),
+            # 'form_router' : form_router,
+            # 'router_config': Router.objects.all(),
             'os_data' : OS.objects.all().order_by('name'),
             'sidebar_domains' : Domain.objects.all().order_by('domain'),
             'sidebar_subnets' : Subnet.objects.all().order_by(Length('ip_network').asc(), 'ip_network'),
@@ -437,20 +437,26 @@ def network_scan(request, id_subnet):
 @login_required(login_url=settings.LOGIN_URL)
 def home(request):
     os = OS.objects.all().order_by('name')
-    ip = Ip_Address.objects.all().count()
+    total_ip = Ip_Address.objects.all().count()
+    total_subnet = Subnet.objects.all().count()
     total_domain = Domain.objects.all().count()
+    total_subdomain = Subdomain.objects.all().count()
     total_dhcp_server = Dhcp_Server.objects.all().count()
+    total_dhcp_lease = MikrotikAPI.get_count_dhcp_lease()
     color = ['primary', 'success', 'warning', 'danger']
     data_os = []
     for data in os:
         count_data = Ip_Address.objects.filter(os_id=data.id).count()
         if count_data != 0:
-            data_os.append({'name' : data.name, 'count' : count_data, 'percentage' : format(count_data / ip * 100, ".0f"), 'color' : random.choice(color)})
+            data_os.append({'name' : data.name, 'count' : count_data, 'percentage' : format(count_data / total_ip * 100, ".0f"), 'color' : random.choice(color)})
 
     data = {
-        'total_ip' : ip,
+        'total_subnet' : total_subnet,
         'total_dhcp_server' : total_dhcp_server,
         'total_domain' : total_domain,
+        'total_ip' : total_ip,
+        'total_dhcp_lease' : total_dhcp_lease,
+        'total_subdomain' : total_subdomain,
         'data_os' : data_os,
         'menu_dashboard' : 'class=mm-active',
         'sidebar_domains' : Domain.objects.all().order_by('domain'),

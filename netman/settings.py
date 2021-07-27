@@ -27,6 +27,7 @@ SECRET_KEY = 'django-insecure-=pjpi=d%y^(_h84td$&gauyd=af@vupko5+rwhg=g@1(@0xlg(
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    '192.168.50.134',
     '192.168.50.105',
     '192.168.11.144',
     'localhost'
@@ -81,11 +82,11 @@ WSGI_APPLICATION = 'netman.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'netman-mikrotik',
+        'NAME': 'ipamdjango',
         
-        'USER': 'admin',
-        'PASSWORD': 'xxxx',
-        'HOST': '192.168.56.10',
+        'USER': 'ipam',
+        'PASSWORD': 'ipam',
+        'HOST': '192.168.200.94',
         'PORT': '3306'
     }
 }
