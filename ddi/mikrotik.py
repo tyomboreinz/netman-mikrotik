@@ -2,8 +2,11 @@ import routeros_api, re
 
 class MikrotikAPI():
 
-    connection = routeros_api.RouterOsApiPool('192.168.50.1', username='admin', password='tirakat', plaintext_login=True)
-    # connection = routeros_api.RouterOsApiPool('192.168.11.1', username='admin', password='mboreinz', plaintext_login=True)
+    host = '192.168.50.1'
+    user = 'admin'
+    password = 'tirakat'
+
+    connection = routeros_api.RouterOsApiPool(host, username=user, password=password, plaintext_login=True)
     api = connection.get_api()
 
     def get_interface_list():
